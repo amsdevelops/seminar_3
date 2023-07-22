@@ -10,6 +10,7 @@ class MainActivityViewModel : ViewModel() {
     private val repository = WordsRepositoryImpl()
 
     suspend fun search(query: String) = suspendCoroutine {
+        if (query.isBlank()) return@suspendCoroutine
         thread {
             val result = repository.getAllWords()
                 .filter { word -> word.contains(query) }

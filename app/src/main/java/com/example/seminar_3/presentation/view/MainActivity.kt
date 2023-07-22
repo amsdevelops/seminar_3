@@ -1,6 +1,7 @@
 package com.example.seminar_3.presentation.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.seminar_3.databinding.ActivityMainBinding
@@ -27,7 +28,11 @@ class MainActivity : AppCompatActivity() {
             scope.launch {
                 val result = viewModel.search(binding.search.text.toString())
                 withContext(Dispatchers.Main) {
-                    binding.result.text = result.toString()
+                    if (result.isEmpty()) {
+                        Toast.makeText(this@MainActivity, "Ничего не найдено", Toast.LENGTH_SHORT).show()
+                    } else {
+                        binding.result.text = result.toString()
+                    }
                 }
             }
         }
